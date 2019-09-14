@@ -29,7 +29,7 @@ trait JWTAuthenticationTrait
         [$login, $password] = explode(':', $credentials, 2);
 
         // Do auth
-        if (! $token = auth()->attempt(['email' => $login, 'password' => $password])) {
+        if (! $token = auth()->attempt(['login' => $login, 'password' => $password])) {
             throw new UnauthorizedHttpException('Unauthorized login');
         }
 

@@ -5,6 +5,7 @@ namespace Specialtactics\L5Api\Http\Controllers\Features;
 use App\Transformers\BaseTransformer;
 use Illuminate\Http\Request;
 use Specialtactics\L5Api\Helpers;
+use Specialtactics\L5Api\Transformers\RestfulTransformer;
 
 trait RestfulControllerTrait
 {

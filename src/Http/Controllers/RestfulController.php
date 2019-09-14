@@ -39,19 +39,15 @@ class RestfulController extends BaseRestfulController
     /**
      * Request to retrieve a single item of this resource
      *
-     * @param string $uuid UUID of the resource
+     * @param int $id of the resource
      * @return \Dingo\Api\Http\Response
      * @throws HttpException
      */
-    public function get($uuid)
+    public function get($id)
     {
         $model = new static::$model;
 
-        $resource = $model::with($model::getItemWith())->where($model->getKeyName(), '=', $uuid)->first();
-
-        if (! $resource) {
-            throw new NotFoundHttpException('Resource \'' . class_basename(static::$model) . '\' with given UUID ' . $uuid . ' not found');
-        }
+        $resource = $model::with($model::getItemWith())->findOrFail($id);
 
         $this->authorizeUserAction('view', $resource);
 
@@ -91,12 +87,12 @@ class RestfulController extends BaseRestfulController
      * Request to create or replace a resource
      *
      * @param Request $request
-     * @param string $uuid
+     * @param int $id
      * @return \Dingo\Api\Http\Response
      */
-    public function put(Request $request, $uuid)
+    public function put(Request $request, $id)
     {
-        $model = static::$model::find($uuid);
+        $model = static::$model::find($id);
 
         if (! $model) {
             // Doesn't exist - create
@@ -134,14 +130,14 @@ class RestfulController extends BaseRestfulController
     /**
      * Request to update the specified resource
      *
-     * @param string $uuid UUID of the resource
+     * @param int $id of the resource
      * @param Request $request
      * @return \Dingo\Api\Http\Response
      * @throws HttpException
      */
-    public function patch($uuid, Request $request)
+    public function patch($id, Request $request)
     {
-        $model = static::$model::findOrFail($uuid);
+        $model = static::$model::findOrFail($id);
 
         $this->authorizeUserAction('update', $model);
 
@@ -159,15 +155,15 @@ class RestfulController extends BaseRestfulController
     }
 
     /**
-     * Deletes a resource by UUID
+     * Deletes a resource by ID
      *
-     * @param string $uuid UUID of the resource
+     * @param int $id of the resource
      * @return \Dingo\Api\Http\Response
      * @throws NotFoundHttpException
      */
-    public function delete($uuid)
+    public function delete($id)
     {
-        $model = static::$model::findOrFail($uuid);
+        $model = static::$model::findOrFail($id);
 
         $this->authorizeUserAction('delete', $model);
 

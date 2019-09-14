@@ -12,23 +12,6 @@ use Specialtactics\L5Api\APIBoilerplate;
 class RestfulModel extends Model
 {
     /**
-     * Every model should have a primary UUID key, which will be returned to API consumers.
-     *
-     * @var string UUID key
-     */
-    public $primaryKey = '';
-
-    /**
-     * @var bool Set to false for UUID keys
-     */
-    public $incrementing = false;
-
-    /**
-     * @var string Set to string for UUID keys
-     */
-    protected $keyType = 'string';
-
-    /**
      * These attributes (in addition to primary & uuid keys) are not allowed to be updated explicitly through
      *  API routes of update and put. They can still be updated internally by Laravel, and your own code.
      *
@@ -107,16 +90,6 @@ class RestfulModel extends Model
     public static function boot()
     {
         parent::boot();
-
-        // Add functionality for creating a model
-        static::creating(function (self $model) {
-            // If the PK(s) are missing, generate them
-            $uuidKeyName = $model->getKeyName();
-
-            if (! is_array($uuidKeyName) && ! array_key_exists($uuidKeyName, $model->getAttributes())) {
-                $model->$uuidKeyName = Uuid::uuid4()->toString();
-            }
-        });
 
         // Add functionality for updating a model
         static::updating(function (self $model) {

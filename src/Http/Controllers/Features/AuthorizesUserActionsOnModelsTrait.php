@@ -2,7 +2,7 @@
 
 namespace Specialtactics\L5Api\Http\Controllers\Features;
 
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**

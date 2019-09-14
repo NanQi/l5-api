@@ -52,12 +52,12 @@ class RestfulService
      * Deletes resources of the given model and uuid(s)
      *
      * @param $model string Model class name
-     * @param $uuid string|array The UUID(s) of the models to remove
+     * @param $id int|array The id of the models to remove
      * @return mixed
      */
-    public function delete($model, $uuid)
+    public function delete($model, $id)
     {
-        $deletedCount = $model::destroy($uuid);
+        $deletedCount = $model::destroy($id);
 
         if ($deletedCount < 1) {
             throw new NotFoundHttpException('Could not find a resource with that UUID to delete');

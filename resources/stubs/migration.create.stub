@@ -17,9 +17,7 @@ class DummyClass extends Migration
     public function up()
     {
         Schema::create(static::TABLE_NAME, function (Blueprint $table) {
-            $table->uuid('_id');
-
-            $table->primary('');
+            $table->increments('id');
 
             $table->timestamps();
             // $table->softDeletes();

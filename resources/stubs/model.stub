@@ -7,23 +7,17 @@ use App\Transformers\BaseTransformer;
 class DummyClass extends BaseModel
 {
     /**
-     * @var string UUID key of the resource
-     */
-    public $primaryKey = '_id';
-
-    /**
-     * @var null|array What relations should one model of this entity be returned with, from a relevant controller
+     * @var null|array 单个模型关联关系
      */
     public static $itemWith = [];
 
     /**
-     * @var null|array What relations should a collection of models of this entity be returned with, from a relevant controller
-     * If left null, then $itemWith will be used
+     * @var null|array 多个模型关联关系
      */
     public static $collectionWith = null;
 
     /**
-     * @var null|BaseTransformer The transformer to use for this model, if overriding the default
+     * @var null|BaseTransformer 转换器
      */
     public static $transformer = null;
 
