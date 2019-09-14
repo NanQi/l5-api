@@ -15,7 +15,7 @@ class DummyClass extends BaseModel
     {
         return [];
     }
-}
+
     /**
      * @var null|array 单个模型关联关系
      */
@@ -40,7 +40,5 @@ class DummyClass extends BaseModel
      * @var array 隐藏的列
      */
     protected $hidden = [];
-
-
 
 }
