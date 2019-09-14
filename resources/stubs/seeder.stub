@@ -7,7 +7,8 @@ class DummyClass extends BaseSeeder
      *
      * @return mixed
      */
-    public function runFake() {
+    public function runFake()
+    {
 
     }
 
@@ -16,7 +17,8 @@ class DummyClass extends BaseSeeder
      *
      * @return mixed
      */
-    public function runProduction() {
+    public function runProduction()
+    {
 
     }
 
@@ -25,7 +27,8 @@ class DummyClass extends BaseSeeder
      *
      * @return mixed
      */
-    public function runAlways() {
+    public function runAlways()
+    {
 
     }
 }
