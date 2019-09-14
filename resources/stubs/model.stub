@@ -17,12 +17,12 @@ class DummyClass extends BaseModel
     }
 
     /**
-     * @var null|array 单个模型关联关系
+     * @var null|array 详情关联关系
      */
     public static $itemWith = [];
 
     /**
-     * @var null|array 多个模型关联关系
+     * @var null|array 列表关联关系
      */
     public static $collectionWith = null;
 

@@ -3,7 +3,7 @@
 class DummyClass extends BaseSeeder
 {
     /**
-     * Run fake seeds - for non production environments
+     * 测试填充假数据
      *
      * @return mixed
      */
@@ -13,7 +13,7 @@ class DummyClass extends BaseSeeder
     }
 
     /**
-     * Run seeds to be ran only on production environments
+     * 生产环境数据
      *
      * @return mixed
      */
@@ -23,7 +23,7 @@ class DummyClass extends BaseSeeder
     }
 
     /**
-     * Run seeds to be ran on every environment (including production)
+     * 始终填充
      *
      * @return mixed
      */

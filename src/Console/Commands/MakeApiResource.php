@@ -42,7 +42,7 @@ class MakeApiResource extends Command
         $this->call('make:controller', ['name' => $name.'Controller', '--model' => $name]);
 
         // Conditionally create policy
-        if ($this->anticipate('是否对于此资源创建授权策略?', ['y', 'n']) == 'y') {
+        if ($this->anticipate('是否对于此资源创建授权策略?(y/n)', ['y', 'n']) == 'y') {
             $policyName = '../Models/Policies/' . $name . 'Policy';
             $this->call('make:policy', ['name' => $policyName, '-m' => $name]);
         }
@@ -56,7 +56,7 @@ class MakeApiResource extends Command
         $this->call('make:migration', ['name' => "create_{$migrationName}_table"]);
 
         // Conditionally create seeder
-        if ($this->anticipate('是否对于此资源创建数据填充?', ['y', 'n']) == 'y') {
+        if ($this->anticipate('是否对于此资源创建数据填充?(y/n)', ['y', 'n']) == 'y') {
             $seederName = Str::plural($name) . 'Seeder';
 
             $this->call('make:seeder', ['name' => $seederName]);

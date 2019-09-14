@@ -8,7 +8,7 @@ use NamespacedDummyModel;
 class DummyClass extends BasePolicy
 {
     /**
-     * Determine whether the user can create DummyModel.
+     * 创建DummyModel权限
      *
      * @param  \NamespacedDummyUserModel  $user
      * @return mixed
@@ -19,7 +19,7 @@ class DummyClass extends BasePolicy
     }
 
     /**
-     * Determine whether the user can view the DummyModel.
+     * 查看DummyModel权限
      *
      * @param  \NamespacedDummyUserModel  $user
      * @param  \NamespacedDummyModel  $dummyModel
@@ -31,7 +31,7 @@ class DummyClass extends BasePolicy
     }
 
     /**
-     * Determine whether the user can view the collection of DummyModel.
+     * 列表DummyModel权限
      *
      * @param  \NamespacedDummyUserModel  $user
      * @return mixed
@@ -42,7 +42,7 @@ class DummyClass extends BasePolicy
     }
 
     /**
-     * Determine whether the user can update the DummyModel.
+     * 修改DummyModel权限
      *
      * @param  \NamespacedDummyUserModel  $user
      * @param  \NamespacedDummyModel  $dummyModel
@@ -54,7 +54,7 @@ class DummyClass extends BasePolicy
     }
 
     /**
-     * Determine whether the user can delete the DummyModel.
+     * 删除DummyModel权限
      *
      * @param  \NamespacedDummyUserModel  $user
      * @param  \NamespacedDummyModel  $dummyModel
@@ -66,7 +66,7 @@ class DummyClass extends BasePolicy
     }
 
     /**
-     * Determine whether the user owns the DummyModel.
+     * 用户是否拥有DummyModel权限
      *
      * @param  \NamespacedDummyUserModel  $user
      * @param  \NamespacedDummyModel  $dummyModel
@@ -77,8 +77,8 @@ class DummyClass extends BasePolicy
     }
 
     /**
-     * This function can be used to add conditions to the query builder,
-     * which will specify the user's ownership of the model for the get collection query of this model
+     * 列表条件
+     * 指定用户对列表的权限
      *
      * @param \App\Models\User $user A user object against which to construct the query. By default, the currently logged in user is used.
      * @param \Illuminate\Database\Eloquent\Builder $query
