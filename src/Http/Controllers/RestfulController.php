@@ -167,10 +167,10 @@ class RestfulController extends BaseRestfulController
 
         $this->authorizeUserAction('delete', $model);
 
-        $deletedCount = $model->delete();
+        $deletedCount = $model->destroy();
 
         if ($deletedCount < 1) {
-            throw new NotFoundHttpException('Could not find a resource with that UUID to delete');
+            throw new NotFoundHttpException('Could not find a resource with that id to delete');
         }
 
         return $this->response->noContent()->setStatusCode(204);

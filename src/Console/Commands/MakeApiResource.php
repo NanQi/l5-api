@@ -20,7 +20,7 @@ class MakeApiResource extends Command
      *
      * @var string
      */
-    protected $description = 'Easily create the infrastructure for an API resource';
+    protected $description = '轻松创建API资源的基础架构';
 
     /**
      * Create a new command instance.
@@ -52,7 +52,7 @@ class MakeApiResource extends Command
         $this->call('make:controller', ['name' => $name.'Controller', '--model' => $name]);
 
         // Conditionally create policy
-        if ($this->anticipate('Would you like to create a policy for this resource?', ['yes', 'no']) == 'yes') {
+        if ($this->anticipate('是否对于此资源创建授权策略?', ['yes', 'no']) == 'yes') {
             $policyName = '../Models/Policies/' . $name . 'Policy';
             $this->call('make:policy', ['name' => $policyName, '-m' => $name]);
         }
@@ -66,12 +66,12 @@ class MakeApiResource extends Command
         $this->call('make:migration', ['name' => "create_{$migrationName}_table"]);
 
         // Conditionally create seeder
-        if ($this->anticipate('Would you like to create a Seeder for this resource?', ['yes', 'no']) == 'yes') {
+        if ($this->anticipate('是否对于此资源创建数据填充?', ['yes', 'no']) == 'yes') {
             $seederName = Str::plural($name) . 'Seeder';
 
             $this->call('make:seeder', ['name' => $seederName]);
 
-            $this->line('Please add the following to your DatabaseSeeder.php file', 'important');
+            $this->line('请在DatabaseSeeder.php文件中添加引用：', 'important');
             $this->line('$this->call('. $seederName .'::class);', 'code');
             $this->line(PHP_EOL);
         }
@@ -80,7 +80,7 @@ class MakeApiResource extends Command
         // Spit out example routes
         //
 
-        $this->line('Example routes to put in your routes/api.php', 'important');
+        $this->line('如果需要添加路由，请复制如下代码到routes/api.php文件指定位置', 'important');
 
         $sectionName = Str::pluralStudly($name);
         $routePrefix = Str::plural(Str::kebab($name));
@@ -92,10 +92,10 @@ class MakeApiResource extends Command
             ' */' . PHP_EOL .
             '$api->group([\'prefix\' => \''. $routePrefix .'\'], function ($api) {' . PHP_EOL .
             '    $api->get(\'/\', \'App\Http\Controllers\\'. $controllerName .'@getAll\');' . PHP_EOL .
-            '    $api->get(\'/{uuid}\', \'App\Http\Controllers\\'. $controllerName .'@get\');' . PHP_EOL .
+            '    $api->get(\'/{id}\', \'App\Http\Controllers\\'. $controllerName .'@get\');' . PHP_EOL .
             '    $api->post(\'/\', \'App\Http\Controllers\\'. $controllerName .'@post\');' . PHP_EOL .
-            '    $api->patch(\'/{uuid}\', \'App\Http\Controllers\\'. $controllerName .'@patch\');' . PHP_EOL .
-            '    $api->delete(\'/{uuid}\', \'App\Http\Controllers\\'. $controllerName .'@delete\');' . PHP_EOL .
+            '    $api->patch(\'/{id}\', \'App\Http\Controllers\\'. $controllerName .'@patch\');' . PHP_EOL .
+            '    $api->delete(\'/{id}\', \'App\Http\Controllers\\'. $controllerName .'@delete\');' . PHP_EOL .
             '});';
 
         $this->line($exampleRoutes, 'code');

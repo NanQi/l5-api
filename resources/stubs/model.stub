@@ -7,6 +7,16 @@ use App\Transformers\BaseTransformer;
 class DummyClass extends BaseModel
 {
     /**
+     * 验证规则
+     *
+     * @return array Rules
+     */
+    public function getValidationRules()
+    {
+        return [];
+    }
+}
+    /**
      * @var null|array 单个模型关联关系
      */
     public static $itemWith = [];
@@ -22,23 +32,15 @@ class DummyClass extends BaseModel
     public static $transformer = null;
 
     /**
-     * @var array The attributes that are mass assignable.
+     * @var array 填充的列
      */
     protected $fillable = [];
 
     /**
-     * @var array The attributes that should be hidden for arrays and API output
+     * @var array 隐藏的列
      */
     protected $hidden = [];
 
-    /**
-     * Return the validation rules for this model
-     *
-     * @return array Rules
-     */
-    public function getValidationRules()
-    {
-        return [];
-    }
+
 
 }

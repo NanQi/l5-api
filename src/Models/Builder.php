@@ -24,7 +24,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
         try {
             $resource = parent::findOrFail($id, $columns);
         } catch (ModelNotFoundException $e) {
-            throw new NotFoundHttpException('Resource \'' . class_basename($e->getModel()) . '\' with given UUID ' . $id . ' not found');
+            throw new NotFoundHttpException('Resource \'' . class_basename($e->getModel()) . '\' with given id ' . $id . ' not found');
         }
 
         return $resource;

@@ -2,7 +2,6 @@
 
 namespace Specialtactics\L5Api\Models;
 
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Illuminate\Database\Eloquent\Model;
 use App\Transformers\BaseTransformer;
@@ -12,7 +11,7 @@ use Specialtactics\L5Api\APIBoilerplate;
 class RestfulModel extends Model
 {
     /**
-     * These attributes (in addition to primary & uuid keys) are not allowed to be updated explicitly through
+     * These attributes (in addition to primary) are not allowed to be updated explicitly through
      *  API routes of update and put. They can still be updated internally by Laravel, and your own code.
      *
      * @var array Attributes to disallow updating through an API update or put
@@ -93,9 +92,9 @@ class RestfulModel extends Model
 
         // Add functionality for updating a model
         static::updating(function (self $model) {
-            // Disallow updating UUID keys
+            // Disallow updating id keys
             if ($model->getAttribute($model->getKeyName()) != $model->getOriginal($model->getKeyName())) {
-                throw new BadRequestHttpException('Updating the UUID of a resource is not allowed.');
+                throw new BadRequestHttpException('Updating the id of a resource is not allowed.');
             }
 
             // Disallow updating immutable attributes
@@ -118,25 +117,6 @@ class RestfulModel extends Model
     public static function getTransformer()
     {
         return is_null(static::$transformer) ? new BaseTransformer : new static::$transformer;
-    }
-
-    /**
-     * When Laravel creates a new model, it will add any new attributes (such as UUID) at the end. When a create
-     * operation such as a POST returns the new resource, the UUID will thus be at the end, which doesn't look nice.
-     * For purely aesthetic reasons, we have this function to conduct a simple reorder operation to move the UUID
-     * attribute to the head of the attributes array
-     *
-     * This will be used at the end of create-related controller functions
-     *
-     * @return void
-     */
-    public function orderAttributesUuidFirst()
-    {
-        if ($this->getKeyName()) {
-            $UuidValue = $this->getKey();
-            unset($this->attributes[$this->getKeyName()]);
-            $this->attributes = [$this->getKeyName() => $UuidValue] + $this->attributes;
-        }
     }
 
     /**
