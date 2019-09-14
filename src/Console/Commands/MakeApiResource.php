@@ -23,16 +23,6 @@ class MakeApiResource extends Command
     protected $description = '轻松创建API资源的基础架构';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
