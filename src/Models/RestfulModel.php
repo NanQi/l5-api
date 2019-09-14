@@ -94,7 +94,7 @@ class RestfulModel extends Model
         static::updating(function (self $model) {
             // Disallow updating id keys
             if ($model->getAttribute($model->getKeyName()) != $model->getOriginal($model->getKeyName())) {
-                throw new BadRequestHttpException('Updating the id of a resource is not allowed.');
+                throw new BadRequestHttpException('不允许更新资源的id');
             }
 
             // Disallow updating immutable attributes
@@ -102,7 +102,7 @@ class RestfulModel extends Model
                 // For each immutable attribute, check if they have changed
                 foreach ($model->immutableAttributes as $attributeName) {
                     if ($model->getOriginal($attributeName) != $model->getAttribute($attributeName)) {
-                        throw new BadRequestHttpException('Updating the "'. APIBoilerplate::formatCaseAccordingToResponseFormat($attributeName) .'" attribute is not allowed.');
+                        throw new BadRequestHttpException('禁止修改属性"'. APIBoilerplate::formatCaseAccordingToResponseFormat($attributeName) .'"');
                     }
                 }
             }

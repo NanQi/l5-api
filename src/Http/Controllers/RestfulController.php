@@ -163,14 +163,12 @@ class RestfulController extends BaseRestfulController
      */
     public function delete($id)
     {
-        $model = static::$model::findOrFail($id);
+        $this->authorizeUserAction('delete', $id);
 
-        $this->authorizeUserAction('delete', $model);
-
-        $deletedCount = $model->destroy();
+        $deletedCount = static::$model::destroy($id);
 
         if ($deletedCount < 1) {
-            throw new NotFoundHttpException('Could not find a resource with that id to delete');
+            throw new NotFoundHttpException('无法找到需要删除的资源ID');
         }
 
         return $this->response->noContent()->setStatusCode(204);

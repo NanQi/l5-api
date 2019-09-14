@@ -20,7 +20,7 @@ trait JWTAuthenticationTrait
 
         // Get for Auth Basic
         if (strtolower(substr($authHeader, 0, 5)) !== 'basic') {
-            throw new UnauthorizedHttpException('Invalid authorization header, should be type basic');
+            throw new UnauthorizedHttpException('无效的授权头部，请使用basic');
         }
 
         // Get credentials
@@ -30,7 +30,7 @@ trait JWTAuthenticationTrait
 
         // Do auth
         if (! $token = auth()->attempt(['login' => $login, 'password' => $password])) {
-            throw new UnauthorizedHttpException('Unauthorized login');
+            throw new UnauthorizedHttpException('登录未授权');
         }
 
         return $this->respondWithToken($token);
