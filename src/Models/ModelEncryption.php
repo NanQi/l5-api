@@ -1,0 +1,116 @@
+<?php
+/**
+ * author: NanQi
+ * datetime: 2019/9/14 21:55
+ */
+namespace App\Models;
+
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
+
+trait ModelEncryption
+{
+    /**
+     * @param $key
+     *
+     * @return bool
+     */
+    public function isEncryptable($key)
+    {
+        if (! isset($this->encryptable)) {
+            return false;
+        }
+        return in_array($key, $this->encryptable);
+    }
+
+    //SELECT AES_DECRYPT(UNHEX(phone),SUBSTR(UNHEX(SHA2('nanqi',512)),1,15)) FROM users;
+
+    private function getAESKey()
+    {
+        $key = env('JIEAO_AES_KEY', 'nanqi');
+        $key = hex2bin(openssl_digest($key, 'sha512'));
+        $key = substr($key, 0, 15);
+
+        return $key;
+    }
+
+    /**
+     * Decrypt a value.
+     *
+     * @param $value
+     *
+     * @return string
+     */
+    protected function decryptAttribute($value)
+    {
+        if ($value) {
+//            $value = Crypt::decryptString($value);
+            $value = openssl_decrypt(base64_encode(hex2bin($value)), 'aes-128-ecb', $this->getAESKey());
+        }
+        return $value;
+    }
+    /**
+     * Encrypt a value.
+     *
+     * @param $value
+     *
+     * @return string
+     */
+    protected function encryptAttribute($value)
+    {
+        if ($value) {
+            $value = bin2hex(base64_decode(openssl_encrypt($value, 'aes-128-ecb', $this->getAESKey())));
+//            $value = Crypt::encryptString($value); // DB::raw("AES_ENCRYPT('$value', 'nanqi')");
+        }
+        return $value;
+    }
+    /**
+     * Extend the Eloquent method so properties present in
+     * $encrypt are decrypted when directly accessed.
+     *
+     * @param $key  The attribute key
+     *
+     * @return string
+     */
+    public function getAttribute($key)
+    {
+        $value = parent::getAttribute($key);
+        if ($this->isEncryptable($key)) {
+            $value = $this->decryptAttribute($value);
+        }
+        return $value;
+    }
+    /**
+     * Extend the Eloquent method so properties present in
+     * $encrypt are encrypted whenever they are set.
+     *
+     * @param $key      The attribute key
+     * @param $value    Attribute value to set
+     *
+     * @return mixed
+     */
+    public function setAttribute($key, $value)
+    {
+        if ($this->isEncryptable($key)) {
+            $value = $this->encryptAttribute($value);
+        }
+        return parent::setAttribute($key, $value);
+    }
+    /**
+     * Extend the Eloquent method so properties in
+     * $encrypt are decrypted when toArray()
+     * or toJson() is called.
+     *
+     * @return mixed
+     */
+    public function getArrayableAttributes()
+    {
+        $attributes = parent::getArrayableAttributes();
+        foreach ($attributes as $key => $attribute) {
+            if ($this->isEncryptable($key)) {
+                $attributes[$key] = $this->decryptAttribute($attribute);
+            }
+        }
+        return $attributes;
+    }
+}

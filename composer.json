@@ -15,7 +15,8 @@
     "dingo/api": "^2",
     "tymon/jwt-auth": "^1.0",
     "illuminate/support": "^5.8",
-    "atehnix/laravel-stubs": "~6.0"
+    "atehnix/laravel-stubs": "~6.0",
+    "ext-openssl": "*"
   },
   "require-dev": {
     "ext-json": "*",
