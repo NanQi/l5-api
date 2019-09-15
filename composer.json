@@ -30,7 +30,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Specialtactics\\L5Api\\": "src/"
+      "Specialtactics\\L5Api\\": "src/",
+      "NanQi\\L5Api\\": "src/"
     },
     "files": ["helpers/helpers.php"]
   },
