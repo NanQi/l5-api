@@ -3,7 +3,7 @@
  * author: NanQi
  * datetime: 2019/9/14 21:55
  */
-namespace App\Models;
+namespace NanQi\L5Api\Models;
 
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
