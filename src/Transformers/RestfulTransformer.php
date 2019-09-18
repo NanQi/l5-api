@@ -74,25 +74,6 @@ class RestfulTransformer extends TransformerAbstract
         }, ARRAY_FILTER_USE_KEY);
 
         /*
-         * Format all dates as Iso8601 strings, this includes the created_at and updated_at columns
-         */
-        foreach ($model->getDates() as $dateColumn) {
-            if (! empty($model->$dateColumn) && ! in_array($dateColumn, $filterOutAttributes)) {
-                $transformed[$dateColumn] = $model->$dateColumn->toIso8601String();
-            }
-        }
-
-        /*
-         * Primary Key transformation - all PKs to be called "id"
-         */
-        unset($transformed[$model->getKeyName()]);
-
-        $transformed = array_merge(
-            ['id' => $model->getKey()],
-            $transformed
-        );
-
-        /*
          * Transform the model keys' case
          */
         $transformed = $this->transformKeysCase($transformed);
@@ -167,7 +148,6 @@ class RestfulTransformer extends TransformerAbstract
         $filterOutAttributes = array_merge(
             $this->model->getHidden(),
             [
-                $this->model->getKeyName(),
                 'deleted_at',
             ]
         );
