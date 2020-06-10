@@ -72,7 +72,9 @@ class DummyClass extends BasePolicy
      * @param  \NamespacedDummyModel  $dummyModel
      * @return mixed
      */
-    public function own(DummyUser $user, DummyModel $dummyModel) {
+
+    public function own(DummyUser $user, DummyModel $dummyModel)
+    {
         return true;
     }
 
